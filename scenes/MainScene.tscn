@@ -1,0 +1,51 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/LevelComplete.tscn" type="PackedScene" id=2]
+[ext_resource path="res://resources/assets/incaTileset.tres" type="TileSet" id=3]
+[ext_resource path="res://scenes/spikes.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/LifeCounter.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/Switch.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/Dagger.tscn" type="PackedScene" id=7]
+
+[node name="MainScene" type="Node2D"]
+
+[node name="LifeCounter" parent="." instance=ExtResource( 5 )]
+position = Vector2( 52, -44 )
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource( 3 )
+cell_size = Vector2( 16, 16 )
+format = 1
+tile_data = PoolIntArray( 0, 25, 0, 1, 25, 0, 30, 4, 0, 65536, 25, 0, 65537, 25, 0, 131072, 25, 0, 131073, 25, 0, 131102, 4, 0, 196608, 25, 0, 196609, 25, 0, 262144, 25, 0, 262145, 25, 0, 262174, 4, 0, 327680, 25, 0, 327681, 25, 0, 393216, 25, 0, 393217, 25, 0, 393246, 4, 0, 458752, 25, 0, 458753, 25, 0, 524288, 25, 0, 524289, 25, 0, 524318, 4, 0, 589824, 25, 0, 589825, 25, 0, 655360, 25, 0, 655361, 25, 0, 655390, 4, 0, 720896, 25, 0, 720897, 25, 0, 786432, 10, 0, 786462, 4, 0, 851968, 10, 0, 917504, 10, 0, 917534, 10, 0, 983040, 19, 0, 983042, 19, 0, 983044, 19, 0, 983046, 19, 0, 983048, 19, 0, 983050, 19, 0, 983052, 19, 0, 983054, 19, 0, 983056, 19, 0, 983058, 19, 0, 983060, 19, 0, 983062, 19, 0, 983064, 19, 0, 983066, 19, 0, 983068, 19, 0, 983070, 19, 0, 1048576, 2, 0, 1048578, 2, 0, 1048580, 2, 0, 1048582, 2, 0, 1048584, 2, 0, 1048586, 2, 0, 1048588, 2, 0, 1048590, 2, 0, 1048592, 2, 0, 1048594, 2, 0, 1048596, 2, 0, 1048598, 2, 0, 1048600, 2, 0, 1048602, 2, 0, 1048604, 2, 0, 1048606, 2, 0 )
+
+[node name="LevelComplete" parent="." instance=ExtResource( 2 )]
+position = Vector2( 445, 209 )
+next_world = "res://scenes/Level2.tscn"
+
+[node name="spikes4" parent="." instance=ExtResource( 4 )]
+position = Vector2( 192, 232 )
+
+[node name="spikes5" parent="." instance=ExtResource( 4 )]
+position = Vector2( 204.464, 232 )
+
+[node name="spikes6" parent="." instance=ExtResource( 4 )]
+position = Vector2( 217.464, 232 )
+
+[node name="spikes7" parent="." instance=ExtResource( 4 )]
+position = Vector2( 230.464, 232 )
+
+[node name="spikes8" parent="." instance=ExtResource( 4 )]
+position = Vector2( 243.464, 232 )
+
+[node name="spikes9" parent="." instance=ExtResource( 4 )]
+position = Vector2( 256.464, 232 )
+
+[node name="Switch" parent="." instance=ExtResource( 6 )]
+position = Vector2( 106, 225 )
+
+[node name="Dagger" parent="." instance=ExtResource( 7 )]
+position = Vector2( 320, 208 )
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 64, 144 )

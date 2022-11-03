@@ -1,0 +1,113 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://resources/assets/catCharset.png" type="Texture" id=1]
+[ext_resource path="res://scenes/Player.gd" type="Script" id=2]
+[ext_resource path="res://scenes/TransitionScreen.tscn" type="PackedScene" id=3]
+[ext_resource path="res://resources/sfx/jump.wav" type="AudioStream" id=4]
+[ext_resource path="res://resources/sfx/deadBodySpawn.wav" type="AudioStream" id=5]
+[ext_resource path="res://resources/sfx/hurt.wav" type="AudioStream" id=6]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 13.4216
+height = 18.8241
+
+[sub_resource type="Animation" id=2]
+resource_name = "idle"
+length = 1.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Rect2( 0, 0, 32, 48 ), Rect2( 32, 0, 32, 48 ), Rect2( 64, 0, 32, 48 ), Rect2( 96, 0, 32, 48 ), Rect2( 128, 0, 32, 48 ), Rect2( 160, 0, 32, 48 ), Rect2( 192, 0, 32, 48 ), Rect2( 224, 0, 32, 48 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "jump"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:region_rect")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ Rect2( 32, 144, 32, 48 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "run"
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Rect2( 0, 48, 32, 48 ), Rect2( 32, 48, 32, 48 ), Rect2( 64, 48, 32, 48 ), Rect2( 96, 48, 32, 48 ), Rect2( 128, 48, 32, 48 ), Rect2( 160, 48, 32, 48 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "spawn"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Rect2( 96, 96, 32, 48 ), Rect2( 64, 96, 32, 48 ), Rect2( 32, 96, 32, 48 ), Rect2( 0, 0, 32, 48 ) ]
+}
+
+[node name="Player" type="KinematicBody2D"]
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 0.996958, 1.14662 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 32, 144, 32, 48 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 2.00452, 2.00452 )
+shape = SubResource( 1 )
+
+[node name="deadBodySpwan" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 5 )
+volume_db = -6.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/idle = SubResource( 2 )
+anims/jump = SubResource( 3 )
+anims/run = SubResource( 4 )
+anims/spawn = SubResource( 5 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+volume_db = -6.0
+
+[node name="TransitionScreen" parent="." instance=ExtResource( 3 )]
+
+[node name="hurt" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+volume_db = -6.0
+
+[connection signal="transitioned" from="TransitionScreen" to="." method="_on_TransitionScreen_transitioned"]

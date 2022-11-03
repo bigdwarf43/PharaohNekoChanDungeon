@@ -1,0 +1,89 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://resources/Fonts/EightBitDragon-anqx.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://resources/assets/incaTileset.tres" type="TileSet" id=2]
+[ext_resource path="res://resources/assets/dialogIndicator.png" type="Texture" id=3]
+[ext_resource path="res://scenes/LastMessage.gd" type="Script" id=4]
+[ext_resource path="res://resources/music/POL-floating-town-short.wav" type="AudioStream" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+size = 8
+extra_spacing_top = 5
+extra_spacing_space = 2
+font_data = ExtResource( 1 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[node name="LastMessage" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -1.0
+margin_top = -1.0
+margin_right = -1.0
+margin_bottom = -1.0
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.0823529, 0.109804, 0.137255, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 48.0
+margin_top = 48.0
+margin_right = -48.0
+margin_bottom = -48.0
+custom_fonts/normal_font = SubResource( 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+bbcode_enabled = true
+bbcode_text = "hello therer"
+text = "hello therer"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource( 2 )
+cell_size = Vector2( 16, 16 )
+format = 1
+tile_data = PoolIntArray( 0, 9, 0, 2, 0, 0, 4, 0, 0, 6, 0, 0, 8, 0, 0, 10, 0, 0, 12, 0, 0, 14, 0, 0, 16, 0, 0, 18, 0, 0, 20, 0, 0, 22, 0, 0, 24, 0, 0, 26, 0, 0, 28, 0, 0, 30, 9, 0, 131072, 0, 0, 131102, 0, 0, 262144, 0, 0, 262174, 0, 0, 393216, 0, 0, 393246, 0, 0, 524288, 0, 0, 524318, 0, 0, 655360, 0, 0, 655390, 0, 0, 786432, 0, 0, 786462, 0, 0, 917504, 0, 0, 917534, 0, 0, 1048576, 9, 0, 1048578, 0, 0, 1048580, 0, 0, 1048582, 0, 0, 1048584, 0, 0, 1048586, 0, 0, 1048588, 0, 0, 1048590, 0, 0, 1048592, 0, 0, 1048594, 0, 0, 1048596, 0, 0, 1048598, 0, 0, 1048600, 0, 0, 1048602, 0, 0, 1048604, 0, 0, 1048606, 9, 0 )
+
+[node name="dialogIndicator" type="Sprite" parent="."]
+position = Vector2( 451.663, 234.5 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 3 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="dialogIndicator"]
+autoplay = "idle"
+anims/idle = SubResource( 2 )
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+volume_db = -20.0
+autoplay = true
+[connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]
